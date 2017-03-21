@@ -34,7 +34,23 @@ class PlayerBar
 end
 
 
-
+class Brick
+  def initialize
+	@brick_image = Gosu::Image.new("img/brick.png", false)
+	@brick_x = 0
+	@brick_y = 0
+  end
+  
+  def set_pos(x, y)
+	@brick_x = x
+	@brick_y = y
+  end
+  
+  def draw
+    @brick_image.draw(@brick_x, @brick_y, 1, 0.045, 0.025)
+  end
+  
+end
 
 
 class RXWindow < Gosu::Window
@@ -49,7 +65,8 @@ class RXWindow < Gosu::Window
     #ovo se poziva ovde jer draw crta na svakih 60msec a ovo se izvrsava samo jednom
     @player.restartPos
 
-
+	@brick = Brick.new
+	@brick.set_pos(100, 100)
   end
 
   def update
@@ -65,6 +82,7 @@ class RXWindow < Gosu::Window
 
   def draw
     @background_image.draw(0,0,0)
+    @brick.draw
     @player.draw
 
   end
