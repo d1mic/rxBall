@@ -1,14 +1,14 @@
 require 'gosu'
 
 class PlayerBar
-  def initialize
+  def initialize(pos_x = 320 , pos_y = 400)
     @image = Gosu::Image.new("img/bar.png",false)
-    @pos_x = 0
-    @pos_y = 0
-  end
-  def restartPos
-    @pos_x = 240
-    @pos_y = 400
+
+    #width i height su geteri od klase image
+    @width  = @image.width * 0.2
+    @height = @image.height * 0.1
+    @pos_x = pos_x
+    @pos_y = pos_y
   end
   def move_left
     @pos_x -= 5
@@ -20,16 +20,15 @@ class PlayerBar
   def move_right
     @pos_x += 5
     #da restartujemo poziciju da ne ide preko 480 - ekrana
-    if @pos_x > 480
-      @pos_x = 480
+    if @pos_x > 640
+      @pos_x = 640
     end
 
   end
 
 
   def draw
-    @image.draw(@pos_x,@pos_y,1,0.2,0.1)
+    @image.draw_rot(@pos_x,@pos_y,1,0,0.5,0.5,0.2,0.1)
   end
 
 end
-
