@@ -30,6 +30,7 @@ class RXWindow < Gosu::Window
     end
 
     @ball.move
+    @ball.checkCollisionPaddle(@player)
   end
 
   def draw
