@@ -1,50 +1,69 @@
 require 'gosu'
 class Ball
-  attr_accessor :ball_x , :ball_y , :ball_angle
-  def initialize(ball_x = 320 , ball_y =200)
+  attr_accessor :x , :y , :angle
+  def initialize(x = 320 , y =200)
     @image_ball = Gosu::Image.new("img/ball_gray.png",false)
-    @ball_x = ball_x
-    @ball_y = ball_y
-    @width = @image_ball.width
-    @height = @image_ball.height
-    print @width,@height
-
-    @ball_angle = Math::PI/4
+    @x = x
+    @y = y
+    @width = 20
+    @height = 20
+    @radius = @width/2
+    @color= Gosu::Color.argb(0xff_ffffff)
+    @center_x = 0
+    @center_y = 0
+    @pi2 = Math::PI/2
+    @angle = Math::PI/4
   end
 
   def draw
-    @image_ball.draw(@ball_x,@ball_y,1,1,1)
+    @image_ball.draw_as_quad(@x, @y, @color,
+                   @x, @y + @height, @color,
+                   @x + @width, @y + @height, @color,
+                   @x + @width, @y, @color,5)
   end
 
   def move
-    @ball_x += Math.sin(@ball_angle) *5
-    @ball_y += Math.cos(@ball_angle) *5
+    @x += Math.sin(@angle) * 7
+    @y += Math.cos(@angle) * 7
+    @center_x = @x + @width/2
+    @center_y = @y + @height/2
 
 
-    if(@ball_x + @width > 620 || @ball_x < 0 || @ball_y <0)
+    if( @center_x + @radius >= 640 || @center_x - @radius  <= 0 || @center_y - @radius <=0)
       self.jump
     end
-    if ( @ball_y + @height > 480)
-      close
+    if ( @center_y + @radius >= 480)
+      exit(-1)
     end
-  end
-  def checkCollisionPaddle(paddle)
-    if(@ball_y + @height >= paddle.pos_y and
-      @ball_x + @width >= paddle.pos_x and
-      @ball_x <= paddle.pos_x + paddle.width)
-      self.jump
-    end
-
-
   end
 
 
+  def RectCircleColliding(rect)
+      distX = (@center_x - rect.x - rect.width/2).abs
+      distY = (@center_y - rect.y - rect.height/2).abs
 
+      if (distX > (rect.width/2 + @radius))
+        return false
+      end
+      if (distY > (rect.height/2 + @radius))
+        return false
+      end
 
+      if (distX <= (rect.width/2))
+        return true
+      end
+      if (distY <= (rect.height/2))
+        return true
+      end
 
+      dx=distX-rect.width/2.0
+      dy=distY-rect.height/2.0
+      return (dx*dx+dy*dy<=(@radius*@radius))
+  end
 
   def jump
-    @ball_angle += Math::PI/2
+    @angle += @pi2
+
   end
 
 

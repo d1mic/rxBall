@@ -2,26 +2,26 @@ require 'gosu'
 require_relative 'brick.rb'
 
 class Level
-	attr_accessor :brick_width, :brick_height
+	attr_accessor :bricks
 	def initialize
-		@brick = Brick.new
-		@bricks = Array.new
-		@width = @brick.brick_width
-		@height = @brick.brick_height
-	 
-		@pos_h = 60
-		@i = 0
-		for @i in 0...4
-			@j = 0
-			@pos_w = 50
-			@pos_h += @height
-			for @j in 0...@bricks.length
-				@bricks << Brick.new
-				@bricks[@j].set_pos(@pos_h, @pos_w)
-				@bricks[@j].draw
-				@j += 1
+		@bricks = []
+		@numofBricks = (640 / Brick::WIDTH)
+		@numofRows = 7
+
+		@w = 0
+		@h = 0
+		for j in 1..@numofRows
+			for i in 1..@numofBricks
+				@bricks << Brick.new(@w ,@h)
+				@w += Brick::WIDTH
 			end
+			@h += Brick::HEIGHT
+			@w = 0
+		end
+end
+	def draw
+		for i in 0..(@numofBricks)*@numofRows -1
+				@bricks[i].draw
 		end
 	end
-	
 end
