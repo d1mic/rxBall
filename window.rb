@@ -2,6 +2,7 @@ require 'gosu'
 require_relative 'brick.rb'
 require_relative 'playerBar.rb'
 require_relative 'ball.rb'
+require_relative 'level.rb'
 
 class RXWindow < Gosu::Window
   # konstruktor za sam prozor koji overrideujes
@@ -15,8 +16,7 @@ class RXWindow < Gosu::Window
 
 
 
-	  @brick = Brick.new
-	  @brick.set_pos(100, 100)
+	@level = Level.new
 
     @ball = Ball.new
   end
@@ -35,7 +35,7 @@ class RXWindow < Gosu::Window
 
   def draw
     @background_image.draw(0,0,0)
-    @brick.draw
+#    @brick.draw
     @player.draw
     @ball.draw
   end
