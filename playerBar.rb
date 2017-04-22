@@ -10,14 +10,14 @@ class PlayerBar
     @x = x
     @y = y
   end
-  def move_left
-    @x -= 10
+  def move_left(delta)
+    @x -= 200 * delta
     if @x < 0
       @x = 0
     end
   end
-  def move_right
-    @x += 10
+  def move_right(delta)
+    @x += 200 * delta
     if @x + @width > 640
       @x = 640 - @width
     end

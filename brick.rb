@@ -1,10 +1,11 @@
 require 'gosu'
 
-HEIGHT = 20
-WIDTH = 64
-
 class Brick
   attr_accessor :width, :height , :x , :y , :live
+
+  HEIGHT = 20
+  WIDTH = 64
+
   def initialize(x,y)
     @brick_image = Gosu::Image.new("img/brick.png", false)
     @x = x

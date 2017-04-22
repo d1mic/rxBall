@@ -1,16 +1,18 @@
 require 'gosu'
+
 class Ball
   attr_accessor :x , :y , :angle
   def initialize(x = 320 , y =200)
     @image_ball = Gosu::Image.new("img/ball_gray.png",false)
+    @color= Gosu::Color.argb(0xff_ffffff)
     @x = x
     @y = y
-    @width = 20
-    @height = 20
-    @radius = @width/2
-    @color= Gosu::Color.argb(0xff_ffffff)
     @center_x = 0
     @center_y = 0
+    @width = 20
+    @height = 20
+
+    @radius = @width/2
     @pi2 = Math::PI/2
     @angle = Math::PI/4
   end
@@ -22,14 +24,23 @@ class Ball
                    @x + @width, @y, @color,5)
   end
 
-  def move
-    @x += Math.sin(@angle) * 7
-    @y += Math.cos(@angle) * 7
+  def move(delta)
+    @x += Math.sin(@angle) * 150 * delta
+    @y += Math.cos(@angle) * 150 * delta
     @center_x = @x + @width/2
     @center_y = @y + @height/2
 
 
-    if( @center_x + @radius >= 640 || @center_x - @radius  <= 0 || @center_y - @radius <=0)
+    if( @center_x + @radius >= 640 )
+      #@x = 640
+      self.jump
+    end
+    if (@center_x - @radius  <= 0)
+      @x = 0
+      self.jump
+    end
+    if (@center_y - @radius <= 0)
+      @y = 0
       self.jump
     end
     if ( @center_y + @radius >= 480)

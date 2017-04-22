@@ -9,11 +9,10 @@ require_relative 'level.rb'
 
 class RXWindow < Gosu::Window
   attr_accessor :delta
-  # konstruktor za sam prozor koji overrideujes
   def initialize
     super 640, 480
     self.caption = "RX ball"
-
+    @last_time = Gosu::milliseconds / 1000.0
     @background_image = Gosu::Image.new("img/space.jpg", false)
     @player = PlayerBar.new
     @level = Level.new
@@ -21,21 +20,19 @@ class RXWindow < Gosu::Window
   end
 
   def update
-
-
+    self.update_delta
     if Gosu.button_down? Gosu::KB_LEFT
-      @player.move_left
+      @player.move_left(@delta)
     end
     if Gosu.button_down? Gosu::KB_RIGHT
-      @player.move_right
+      @player.move_right(@delta)
     end
-    @ball.move
-
-
+    @ball.move(@delta)
 
     if @ball.RectCircleColliding(@player)
       @ball.jump
     end
+
 
     for brick in @level.bricks
       if brick.live
@@ -60,6 +57,12 @@ class RXWindow < Gosu::Window
   # overrideuje se fja button_down koja je vec definisana
   def button_down(button)
     close if button == Gosu::KbEscape
+  end
+
+  def update_delta
+    current_time = Gosu::milliseconds / 1000.0
+    @delta = [current_time - @last_time, 0.25].min
+    @last_time = current_time
   end
 
 end
