@@ -12,9 +12,10 @@ class Ball
     @width = 20
     @height = 20
 
+
+    @vector_x = 3;
+    @vector_y = 3;
     @radius = @width/2
-    @pi2 = Math::PI/2
-    @angle = Math::PI/4
   end
 
   def draw
@@ -25,27 +26,41 @@ class Ball
   end
 
   def move(delta)
-    @x += Math.sin(@angle) * 150 * delta
-    @y += Math.cos(@angle) * 150 * delta
+    @x += @vector_x;
+    @y += @vector_y;
+
     @center_x = @x + @width/2
     @center_y = @y + @height/2
 
 
-    if( @center_x + @radius >= 640 )
-      #@x = 640
-      self.jump
+    CollisionFieldCheck()
+  end
+
+
+  def CollisionFieldCheck() 
+    if (@x <= 0) 
+     # @x=0
+      @vector_x= - @vector_x
     end
-    if (@center_x - @radius  <= 0)
-      @x = 0
-      self.jump
+
+    if (@center_x + @radius >= 640)
+      #@x= 640 - @radius;
+      @vector_x = -@vector_x;
     end
+
     if (@center_y - @radius <= 0)
-      @y = 0
-      self.jump
+      #@y = 0
+      @vector_y = -@vector_y;
     end
-    if ( @center_y + @radius >= 480)
-      exit(-1)
+
+   
+    if ( @center_y + @radius >= 480) 
+      #@y = 480 - @radius
+      @vector_y=-@vector_y
+
     end
+
+
   end
 
 
@@ -73,7 +88,8 @@ class Ball
   end
 
   def jump
-    @angle += @pi2
+    @vector_x =  @vector_x;
+    @vector_y = - @vector_y;
 
   end
 

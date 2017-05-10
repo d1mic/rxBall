@@ -1,9 +1,9 @@
 require 'gosu'
 require 'rubygems'
-require_relative 'brick.rb'
-require_relative 'playerBar.rb'
-require_relative 'ball.rb'
-require_relative 'level.rb'
+require_relative 'src/brick.rb'
+require_relative 'src/playerBar.rb'
+require_relative 'src/ball.rb'
+require_relative 'src/level.rb'
 
 
 
@@ -54,9 +54,11 @@ class RXWindow < Gosu::Window
 
   end
 
-  # overrideuje se fja button_down koja je vec definisana
+ 
   def button_down(button)
-    close if button == Gosu::KbEscape
+    if button == Gosu::KbEscape
+        close
+    end
   end
 
   def update_delta
@@ -67,4 +69,4 @@ class RXWindow < Gosu::Window
 
 end
 
-RXWindow.new.show
+#RXWindow.new.show
