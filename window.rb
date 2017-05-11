@@ -58,6 +58,7 @@ class RXWindow < Gosu::Window
   def button_down(button)
     if button == Gosu::KbEscape
         close
+        Homescreen.new.show
     end
   end
 

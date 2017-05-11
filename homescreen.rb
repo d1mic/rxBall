@@ -16,7 +16,7 @@ class Homescreen < Gosu::Window
     	@width = 150
     	@color= Gosu::Color.argb(0xff_ffffff)
 
-    	@select = 330
+    	@select = 310
 
 		self.load_assets
     end
@@ -41,35 +41,31 @@ class Homescreen < Gosu::Window
 
 		@font.draw("*" , 200 , @select ,3,1,1 , Gosu::Color::WHITE)
 
-		@font.draw("new game" , 250, 320 ,3,1,1 , Gosu::Color::WHITE)
-		@font.draw("credits", 250, 350, 3, 1, 1, Gosu::Color::WHITE)
-		@font.draw("quit game", 250, 380, 3, 1, 1, Gosu::Color::WHITE)
+		@font.draw("new game" , 250, 300 ,3,1,1 , Gosu::Color::WHITE)
+		@font.draw("credits", 250, 330, 3, 1, 1, Gosu::Color::WHITE)
+		@font.draw("quit game", 250, 360, 3, 1, 1, Gosu::Color::WHITE)
 	    @font.draw("click space to select", 20, 10, 3, 1, 1, Gosu::Color::WHITE)
-	   # @font.draw("press N to start the game", 100, 400, 3, 1, 1, Gosu::Color::WHITE)
+
 	end
 
 	def button_down(button)
-		if button == Gosu::KbSpace && @select == 330
+		if button == Gosu::KbSpace && @select == 310
 			$window.close
        		RXWindow.new.show
     	end
 
-    	if button == Gosu::KbSpace && @select == 390
+    	if button == Gosu::KbSpace && @select == 370
     		$window.close
-    	end
-
-
-    	if button == Gosu::KbQ
-    		$window.close
+    		close
     	end
 
     	if button == Gosu::KbDown
-    		if(@select < 390)
+    		if(@select < 370)
 				@select += 30 
 			end
     	end
     	if button == Gosu::KbUp
-    		if(@select > 330)
+    		if(@select > 310)
 				@select -= 30 
 			end
     	end
