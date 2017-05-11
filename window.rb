@@ -21,14 +21,22 @@ class RXWindow < Gosu::Window
 
   def update
     self.update_delta
+    
+
     if Gosu.button_down? Gosu::KB_LEFT
       @player.move_left(@delta)
     end
     if Gosu.button_down? Gosu::KB_RIGHT
       @player.move_right(@delta)
     end
+    
+    @player.update
+
     @ball.move(@delta)
 
+
+
+    
     if @ball.RectCircleColliding(@player)
       @ball.jump
     end
@@ -38,8 +46,11 @@ class RXWindow < Gosu::Window
       if brick.live
         if @ball.RectCircleColliding(brick)
           brick.live = false
-          #@level.bricks.delete(brick)
           @ball.jump
+
+          brick.checkPower(@player)
+
+
         end
       end
 		end

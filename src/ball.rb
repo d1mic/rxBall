@@ -87,6 +87,8 @@ class Ball
       return (dx*dx+dy*dy<=(@radius*@radius))
   end
 
+
+  
   def jump
     @vector_x =  @vector_x;
     @vector_y = - @vector_y;

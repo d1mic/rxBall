@@ -57,6 +57,8 @@ class Homescreen < Gosu::Window
     	if button == Gosu::KbSpace && @select == 370
     		$window.close
     		close
+
+    		
     	end
 
     	if button == Gosu::KbDown
