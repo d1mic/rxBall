@@ -1,9 +1,7 @@
 require 'gosu'
 
 class Homescreen < Gosu::Window
-    FONT_ASSETS = {
-      font: "assets/fonts/pixelade-webfont.ttf"
-    }
+    FONT_ASSETS = { font: "assets/fonts/pixelade-webfont.ttf" }
 
    def initialize
 		super 640, 480
@@ -20,12 +18,7 @@ class Homescreen < Gosu::Window
 
 		self.load_assets
     end
-	
-	def update
-		#@x = self.width  / 2 - @image.width / 2 + Math.sin(Time.now.to_f) * 50
-		#@y = self.height / 2 - @image.height / 2 + Math.cos(Time.now.to_f) * 20
-	end
-	
+
 	def load_assets
 		@font= Gosu::Font.new(self, FONT_ASSETS[:font], 40)
     end
@@ -35,9 +28,6 @@ class Homescreen < Gosu::Window
 	    @x = 250
 	    @y= 100
 		@image.draw_as_quad(@x, @y, @color, @x + @width, @y, @color,@x + @width, @y + @height, @color, @x, @y + @height, @color,5)
-
-
-		#@image.draw_as_quad(@x, @y, @color, @x + @width, @y, @color,@x + @width, @y + @height, @color, @x, @y + @height, @color,5)
 
 		@font.draw("*" , 200 , @select ,3,1,1 , Gosu::Color::WHITE)
 
@@ -51,14 +41,13 @@ class Homescreen < Gosu::Window
 	def button_down(button)
 		if button == Gosu::KbSpace && @select == 310
 			$window.close
+			close
        		RXWindow.new.show
     	end
 
     	if button == Gosu::KbSpace && @select == 370
     		$window.close
     		close
-
-    		
     	end
 
     	if button == Gosu::KbDown

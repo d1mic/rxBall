@@ -17,6 +17,11 @@ class RXWindow < Gosu::Window
     @player = PlayerBar.new
     @level = Level.new
     @ball = Ball.new
+    @font = Gosu::Font.new(self, "assets/fonts/pixelade-webfont.ttf", 35)
+    @score = 0
+
+    $endGame = 0
+
   end
 
   def update
@@ -34,22 +39,20 @@ class RXWindow < Gosu::Window
 
     @ball.move(@delta)
 
+    #PROVERA KOLIZIJE LOPTE I BAR-a
 
-
-    
     if @ball.RectCircleColliding(@player)
       @ball.jump
     end
 
-
+    # ODRADJENA PROVERA ZA SVAKU CIGLU DA LI JE DOSLO DO KOLIZIJE I DAL JE TREBA OBRISATI , AKTIVIRATI MOC ILI UVECATI SCORE
     for brick in @level.bricks
       if brick.live
         if @ball.RectCircleColliding(brick)
           brick.live = false
           @ball.jump
-
           brick.checkPower(@player)
-
+          @score += 10
 
         end
       end
@@ -59,16 +62,24 @@ class RXWindow < Gosu::Window
 
   def draw
     @background_image.draw(0,0,0)
-    @level.draw
-    @player.draw
-    @ball.draw
+   
+    if($endGame == 0)
+      @level.draw
+      @player.draw
+      @ball.draw
+      @font.draw("Score: ", 500, 430, 3, 1, 1, Gosu::Color::WHITE)
+      @font.draw(@score.to_s, 590, 430 , 3, 1, 1, Gosu::Color::WHITE)
+    else
+      @font.draw("Game over!", 250 , 200 , 3,1,1, Gosu::Color::WHITE)
+      @font.draw("Press esc to go back to main menu", 120, 300 , 3, 1,1 ,Gosu::Color::WHITE)
+    end
 
   end
 
  
   def button_down(button)
     if button == Gosu::KbEscape
-        close
+        close!
         Homescreen.new.show
     end
   end
@@ -80,5 +91,3 @@ class RXWindow < Gosu::Window
   end
 
 end
-
-#RXWindow.new.show

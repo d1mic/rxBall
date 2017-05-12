@@ -25,7 +25,7 @@ class Ball
                    @x + @width, @y, @color,5)
   end
 
-  def move(delta)
+  def move(delta )
     @x += @vector_x;
     @y += @vector_y;
 
@@ -38,26 +38,19 @@ class Ball
 
 
   def CollisionFieldCheck() 
+
     if (@x <= 0) 
-     # @x=0
       @vector_x= - @vector_x
     end
-
     if (@center_x + @radius >= 640)
-      #@x= 640 - @radius;
       @vector_x = -@vector_x;
     end
-
     if (@center_y - @radius <= 0)
-      #@y = 0
       @vector_y = -@vector_y;
     end
-
-   
     if ( @center_y + @radius >= 480) 
-      #@y = 480 - @radius
-      @vector_y=-@vector_y
-
+      #@vector_y=-@vector_y
+      $endGame = 1
     end
 
 

@@ -16,6 +16,7 @@ class Brick
     @color = color
     @live = true
 
+
     @powerUp = power
 
 
@@ -33,8 +34,15 @@ class Brick
       playerBar.width += 30;
       playerBar.timePower = Time.new.sec
       playerBar.typePower = 1
-      playerBar.active += 1
+      playerBar.active1 += 1
     end
+    if( @powerUp == 2)
+      playerBar.speed += 100
+      playerBar.timePower = Time.new.sec
+      playerBar.typePower = 2
+      playerBar.active2 += 1
+    end
+
   end
 
   def draw
