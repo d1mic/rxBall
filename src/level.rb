@@ -6,7 +6,8 @@ class Level
 	def initialize
 		@bricks = []
 		@numofBricks = (640 / Brick::WIDTH)
-		@numofRows = 7
+		
+		@numofRows = rand(3..6)
 
 
 
@@ -15,8 +16,13 @@ class Level
 		for j in 1..@numofRows
 			for i in 1..@numofBricks
 				
-				if(Time.now.usec % 5 == 0)
-					@bricks << Brick.new(@w ,@h, Gosu::Color.argb(0xff_f123ff) , 1)
+				if(rand(0..10) % 5 == 0)
+
+					r = rand(0-255)
+					g = rand(0-255)
+					b = rand(0-255)
+
+					@bricks << Brick.new(@w ,@h, Gosu::Color.argb(255,r,g,b) , 1)
 
 				else
 					@bricks << Brick.new(@w,@h)

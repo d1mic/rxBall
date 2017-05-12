@@ -8,7 +8,7 @@ class Brick
 
 
   def initialize(x,y, color = Gosu::Color.argb(0xff_ffffff) , power = 0 )
-    @brick_image = Gosu::Image.new("img/brick.png", false)
+    @brick_image = Gosu::Image.new("img/brick2.png", false)
     @x = x
     @y = y
     @height = HEIGHT
@@ -39,10 +39,7 @@ class Brick
 
   def draw
     if(@live)
-      @brick_image.draw_as_quad(@x, @y, @color,
-                     @x, @y + @height, @color,
-                     @x + @width, @y + @height, @color,
-                     @x + @width, @y, @color,5)
+      @brick_image.draw_as_quad(@x, @y, @color,  @x, @y + @height, @color, @x + @width, @y + @height, @color,   @x + @width, @y, @color,5)
     end
   end
 
