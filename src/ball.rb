@@ -1,8 +1,9 @@
 require 'gosu'
+require 'rubygems'
 
 class Ball
-  attr_accessor :x , :y , :angle
-  def initialize(x = 320 , y =200)
+  attr_accessor :x , :y , :angle, :typePower, :timePower, :active3, :vector_x, :vector_y, :speed
+  def initialize(x = 320 , y =200, speed = 1)
     @image_ball = Gosu::Image.new("img/ball_gray.png",false)
     @color= Gosu::Color.argb(0xff_ffffff)
     @x = x
@@ -11,11 +12,13 @@ class Ball
     @center_y = 0
     @width = 20
     @height = 20
-
-
-    @vector_x = 3;
-    @vector_y = 3;
+	
+	@speed = speed
+    @vector_x = 3
+    @vector_y = 3
     @radius = @width/2
+    
+    @active3 = 0
   end
 
   def draw
@@ -25,9 +28,9 @@ class Ball
                    @x + @width, @y, @color,5)
   end
 
-  def move(delta )
-    @x += @vector_x;
-    @y += @vector_y;
+  def move(delta)
+    @x += @vector_x * @speed;
+    @y += @vector_y * @speed;
 
     @center_x = @x + @width/2
     @center_y = @y + @height/2
@@ -80,7 +83,12 @@ class Ball
       return (dx*dx+dy*dy<=(@radius*@radius))
   end
 
-
+  def update
+    if(@typePower == 3 && @timePower + 10 <= Time.now.sec && @active3 != 0)
+      @speed *= 2
+      @active3 -= 1
+    end
+  end
   
   def jump
     @vector_x =  @vector_x;

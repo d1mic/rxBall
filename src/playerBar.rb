@@ -1,7 +1,10 @@
 require 'gosu'
 require 'rubygems'
+
 class PlayerBar
-  attr_accessor :width , :height , :x , :y , :color , :timePower , :typePower , :active1 , :active2 , :speed
+  attr_accessor :width , :height , :x , :y , :color , :timePower , :typePower , :speed
+  attr_accessor :active1 , :active2, :active4, :active5
+  attr_accessor :left, :right
   def initialize(x = 320 , y = 400, color = Gosu::Color.argb(0xff_ffffff) , speed = 250)
     @image = Gosu::Image.new("img/bar.png",false)
     @width  = 70
@@ -11,17 +14,30 @@ class PlayerBar
     @y = y
     @active1 = 0
     @active2 = 0
+    @active4 = 0
+    @active5 = 0
     @speed = speed
+    @left = left
+    @right = right
 
   end
   def move_left(delta)
     @x -= @speed * delta
-    if @x < 0
+    if @speed < 0
+	  if @x + @width > 640
+		@x = 640 - @width
+      end
+    elsif @x < 0 
       @x = 0
     end
   end
   def move_right(delta)
     @x += @speed * delta
+    if @speed < 0
+	  if @x < 0 
+        @x = 0
+	  end
+    end
     if @x + @width > 640
       @x = 640 - @width
     end
@@ -42,6 +58,13 @@ class PlayerBar
     if(@typePower == 2 && @timePower + 10 <= Time.now.sec && @active2 != 0)
       @speed -= 100
       @active2 -= 1
+    end
+
+    if(@typePower == 5 && @timePower + 10 <= Time.now.sec && @active5 != 0)
+	  if @speed < 0
+		@speed = -@speed
+	  end
+      @active5 -= 1
     end
 
   end

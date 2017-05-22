@@ -6,7 +6,6 @@ require_relative 'src/ball.rb'
 require_relative 'src/level.rb'
 
 
-
 class RXWindow < Gosu::Window
   attr_accessor :delta
   def initialize
@@ -19,14 +18,13 @@ class RXWindow < Gosu::Window
     @ball = Ball.new
     @font = Gosu::Font.new(self, "assets/fonts/pixelade-webfont.ttf", 35)
     @score = 0
-
+	
     $endGame = 0
 
   end
 
   def update
     self.update_delta
-    
 
     if Gosu.button_down? Gosu::KB_LEFT
       @player.move_left(@delta)
@@ -52,6 +50,7 @@ class RXWindow < Gosu::Window
           brick.live = false
           @ball.jump
           brick.checkPower(@player)
+          brick.checkPower1(@ball)
           @score += 10
 
         end
@@ -91,3 +90,4 @@ class RXWindow < Gosu::Window
   end
 
 end
+RXWindow.new.show
