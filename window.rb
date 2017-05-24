@@ -3,8 +3,9 @@ require 'rubygems'
 require_relative 'src/brick.rb'
 require_relative 'src/playerBar.rb'
 require_relative 'src/ball.rb'
-require_relative 'src/level.rb'
+require_relative 'src/level1.rb'
 
+LEVEL = 1
 
 class RXWindow < Gosu::Window
   attr_accessor :delta
@@ -14,8 +15,9 @@ class RXWindow < Gosu::Window
     @last_time = Gosu::milliseconds / 1000.0
     @background_image = Gosu::Image.new("img/space.jpg", false)
     @player = PlayerBar.new
-    @level = Level.new
     @ball = Ball.new
+    @level = Level.new("levels/lvl#{LEVEL}.txt")
+   # @level = Level.new
     @font = Gosu::Font.new(self, "assets/fonts/pixelade-webfont.ttf", 35)
     @score = 0
 	
@@ -74,12 +76,15 @@ class RXWindow < Gosu::Window
     end
 
   end
-
  
   def button_down(button)
     if button == Gosu::KbEscape
         close!
         Homescreen.new.show
+    end
+	if button == Gosu::KbP
+	  @ball.toggle_pause
+	  @player.toggle_pause
     end
   end
 
@@ -88,6 +93,8 @@ class RXWindow < Gosu::Window
     @delta = [current_time - @last_time, 0.25].min
     @last_time = current_time
   end
+
+
 
 end
 RXWindow.new.show

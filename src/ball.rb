@@ -12,13 +12,35 @@ class Ball
     @center_y = 0
     @width = 20
     @height = 20
-	
+	@paused = false
 	@speed = speed
     @vector_x = 3
     @vector_y = 3
     @radius = @width/2
     
     @active3 = 0
+  end
+
+  def pause
+    @vx_paused = @vector_x
+    @vy_paused = @vector_y
+    @vector_x = 0
+    @vector_y = 0
+    @paused = true
+  end
+  
+  def unpause
+	@vector_x = @vx_paused
+	@vector_y = @vy_paused
+	@paused = false
+  end
+  
+  def toggle_pause
+	if @paused
+	  unpause
+	else
+	  pause
+	end
   end
 
   def draw

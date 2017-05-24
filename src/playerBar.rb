@@ -19,8 +19,29 @@ class PlayerBar
     @speed = speed
     @left = left
     @right = right
+    @paused = false
 
   end
+  
+  def pause
+    @speed_paused = @speed
+    @speed = 0
+    @paused = true
+  end
+  
+  def unpause
+	@speed = @speed_paused
+	@paused = false
+  end
+  
+  def toggle_pause
+	if @paused
+	  unpause
+	else
+	  pause
+	end
+  end
+  
   def move_left(delta)
     @x -= @speed * delta
     if @speed < 0

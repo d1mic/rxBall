@@ -7,7 +7,7 @@ class Brick
   WIDTH = 64
 
 
-  def initialize(x,y, color = Gosu::Color.argb(0xff_ffffff) , power = 0 )
+  def initialize(x,y, color = Gosu::Color.argb(0xff_ffffff) , power = 0)
     @brick_image = Gosu::Image.new("img/brick2.png", false)
     @x = x
     @y = y
