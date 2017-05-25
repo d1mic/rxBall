@@ -20,6 +20,12 @@ class Ball
     @active3 = 0
   end
 
+  def reset_location
+    @speed = -1
+    @x = 320
+    @y = 150
+  end
+
   def pause
     @vx_paused = @vector_x
     @vy_paused = @vector_y

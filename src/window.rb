@@ -114,6 +114,7 @@ class RXWindow < Gosu::Window
     if button == Gosu::KbN
       @lvlNum += 1
       @level = Level.new("levels/lvl#{@lvlNum}.txt")
+      @ball.reset_location
     end
   end
 
