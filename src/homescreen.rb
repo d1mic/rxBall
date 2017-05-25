@@ -38,16 +38,26 @@ class Homescreen < Gosu::Window
 
 	def button_down(button)
 		if button == Gosu::KbSpace && @select == 310
-			@menuSong.play
-			$window.close
-			close
-       		RXWindow.new.show
+				@menuSong.play
+
+				if($home  != nil)
+					$home.close!
+				end
+				if( $game != nil)
+					$game.close!
+				end
+
+				$game = RXWindow.new.show
+				self.close!
+
     	end
 
     	if button == Gosu::KbSpace && @select == 370
     		@menuSong.play
-    		$window.close
-    		close
+    		if($home != nil)
+    			$home.close!
+    		end
+    		self.close!
     	end
 
     	if button == Gosu::KbDown

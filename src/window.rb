@@ -15,7 +15,6 @@ class RXWindow < Gosu::Window
 
     @mainSong = Gosu::Song.new("assets/music/main.wav")
     @mainSong.play(true)
-
     @last_time = Gosu::milliseconds / 1000.0
     @background_image = Gosu::Image.new("assets/img/space.jpg", false)
     @player = PlayerBar.new
@@ -71,7 +70,7 @@ class RXWindow < Gosu::Window
 
   def draw
     @background_image.draw(0,0,0)
-   
+
     if($endGame == 0)
       @level.draw
       @player.draw
@@ -96,9 +95,14 @@ class RXWindow < Gosu::Window
   def button_down(button)
     if button == Gosu::KbEscape
         @mainSong.stop
-        close!
-        Homescreen.new.show
-
+        if($game != nil) 
+          $game.close
+        end
+        if($home != nil) 
+          $home.close!
+        end
+        $home = Homescreen.new.show
+        self.close!
     end
 	 if button == Gosu::KbP
 	   @ball.toggle_pause

@@ -7,7 +7,8 @@ require_relative 'src/ball.rb'
 require_relative 'src/level1.rb'
 require_relative 'src/homescreen.rb' 
 
+$game_in_progress = 0
+$game = nil
+$home = Homescreen.new.show
 
-$window = Homescreen.new
-$window.show
 
