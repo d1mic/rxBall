@@ -6,10 +6,9 @@ class Homescreen < Gosu::Window
    def initialize
 		super 640, 480
 		self.caption = "RX Ball"
-		@image = Gosu::Image.new("img/logo.png", false)
-
-		#@image = Gosu::Image.from_text self, "RX Ball",Gosu.default_font_name, 100
-		@background_image = Gosu::Image.new("img/milky-way-galaxy.jpg", false )
+		@image = Gosu::Image.new("assets/img/logo.png", false)
+		@menuSong = Gosu::Sample.new("assets/music/menu.wav")
+		@background_image = Gosu::Image.new("assets/img/milky-way-galaxy.jpg", false )
 		@height = 150
     	@width = 150
     	@color= Gosu::Color.argb(0xff_ffffff)
@@ -35,32 +34,33 @@ class Homescreen < Gosu::Window
 		@font.draw("credits", 250, 330, 3, 1, 1, Gosu::Color::WHITE)
 		@font.draw("quit game", 250, 360, 3, 1, 1, Gosu::Color::WHITE)
 	    @font.draw("click space to select", 20, 10, 3, 1, 1, Gosu::Color::WHITE)
-
 	end
 
 	def button_down(button)
 		if button == Gosu::KbSpace && @select == 310
+			@menuSong.play
 			$window.close
 			close
        		RXWindow.new.show
     	end
 
     	if button == Gosu::KbSpace && @select == 370
+    		@menuSong.play
     		$window.close
     		close
     	end
 
     	if button == Gosu::KbDown
+    		@menuSong.play
     		if(@select < 370)
 				@select += 30 
 			end
     	end
     	if button == Gosu::KbUp
+    		@menuSong.play
     		if(@select > 310)
 				@select -= 30 
 			end
     	end
 	end
 end
-
-#Homescreen.new.show

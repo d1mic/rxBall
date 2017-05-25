@@ -8,54 +8,59 @@ class Level
   attr_accessor :bricks
   
   def initialize(filename)
+
     @filename = filename
     @bricks = []
 
-	@lines = File.readlines(@filename)
-	puts @lines
-    x = 0
-    y = 0
-    
-    @lines.each do |char|
-      @brick_color = colors[char]
-      if @brick_color == 'n'
-        # create a brick here
-        @brick = Brick.new(x, y, brick_color, 1)
-      elsif @brick_color == 'r'
-        @brick = Brick.new(x, y, brick_color, 2)
-      elsif @brick_color == 'y'
-        @brick = Brick.new(x, y, brick_color, 3)        
-      elsif @brick_color == 'b'
-        @brick = Brick.new(x, y, brick_color, 4)
-      elsif @brick_color == 'p'
-        @brick = Brick.new(x, y, brick_color, 5)        
-      elsif @brick_color == 'g'
-        @brick = Brick.new(x, y, brick_color)        
+	  @lines = File.readlines(@filename)
+    @ispravno = false
+
+    @w = 0
+    @h = 0
+  
+  for line in @lines
+    for i in 0..line.length
+      if line[i] == 'g'
+        #prosirenje paddle - zeleno
+        @bricks << Brick.new(@w, @h, Gosu::Color.argb(255, 0, 204, 0), 1)
+      elsif line[i] == 'r'
+        #ubrzavanje paddle - crveno
+        @bricks << Brick.new(@w ,@h, Gosu::Color.argb(255, 246, 16, 16), 2)
+      elsif line[i] == 'y'
+        #usporavanje loptice - zuto 
+        @bricks << Brick.new(@w, @h, Gosu::Color.argb(255, 255, 255, 0), 3)
+      elsif line[i] == 'p'
+        # drunk paddle - ljubicasto
+        @bricks << Brick.new(@w, @h, Gosu::Color.argb(255, 153, 0, 153), 5)
+      elsif line[i] == 'n'
+        # normalno
+        @bricks << Brick.new(@w,@h)
       end
-      @bricks << @brick
-      x += Brick::WIDTH + 0
-      if x == 640
-		x = 0
-	  end
-	  
-      y += Brick::HEIGHT + 0
+
+
+      @w += Brick::WIDTH
     end
+    @h += Brick::HEIGHT
+    @w = 0
   end
+end
+
   
   def draw
-		for i in 0..@bricks.length
+		for i in 0..@bricks.length-1
 				@bricks[i].draw
 		end
   end
-  
-  def colors
-    {
-      "g" => :grey,
-      "p" => :purple,
-      "n" => :green,
-      "y" => :yellow,
-      "r" => :red,
-      "b" => :blue
-    }
+
+  def winGame
+      for i in 0..@bricks.length-1
+        if (@bricks[i].live)
+           return false
+        end
+      end
   end
+
+
+
+
 end

@@ -1,9 +1,9 @@
 require 'gosu'
 require 'rubygems'
-require_relative 'src/brick.rb'
-require_relative 'src/playerBar.rb'
-require_relative 'src/ball.rb'
-require_relative 'src/level1.rb'
+require_relative 'brick.rb'
+require_relative 'playerBar.rb'
+require_relative 'ball.rb'
+require_relative 'level1.rb'
 
 LEVEL = 1
 
@@ -12,12 +12,16 @@ class RXWindow < Gosu::Window
   def initialize
     super 640, 480
     self.caption = "RX ball"
+
+    @mainSong = Gosu::Song.new("assets/music/main.wav")
+    @mainSong.play(true)
+
     @last_time = Gosu::milliseconds / 1000.0
-    @background_image = Gosu::Image.new("img/space.jpg", false)
+    @background_image = Gosu::Image.new("assets/img/space.jpg", false)
     @player = PlayerBar.new
     @ball = Ball.new
-    @level = Level.new("levels/lvl#{LEVEL}.txt")
-   # @level = Level.new
+    @lvlNum = 1;
+    @level = Level.new("levels/lvl#{@lvlNum}.txt")
     @font = Gosu::Font.new(self, "assets/fonts/pixelade-webfont.ttf", 35)
     @score = 0
 	
@@ -36,7 +40,7 @@ class RXWindow < Gosu::Window
     end
     
     @player.update
-
+    @ball.update
     @ball.move(@delta)
 
     #PROVERA KOLIZIJE LOPTE I BAR-a
@@ -45,14 +49,18 @@ class RXWindow < Gosu::Window
       @ball.jump
     end
 
+    if @level.winGame
+        @lvlNum += 1
+        @level = Level.new("levels/lvl#{@lvlNum}.txt")
+    end
+
     # ODRADJENA PROVERA ZA SVAKU CIGLU DA LI JE DOSLO DO KOLIZIJE I DAL JE TREBA OBRISATI , AKTIVIRATI MOC ILI UVECATI SCORE
     for brick in @level.bricks
       if brick.live
         if @ball.RectCircleColliding(brick)
-          brick.live = false
           @ball.jump
-          brick.checkPower(@player)
-          brick.checkPower1(@ball)
+          brick.live = false
+          brick.checkPower(@player,@ball)
           @score += 10
 
         end
@@ -68,23 +76,44 @@ class RXWindow < Gosu::Window
       @level.draw
       @player.draw
       @ball.draw
+      @font.draw("Level: ", 50, 430, 3, 1, 1, Gosu::Color::WHITE)
+      @font.draw(@lvlNum.to_s, 140, 430 , 3, 1, 1, Gosu::Color::WHITE)
       @font.draw("Score: ", 500, 430, 3, 1, 1, Gosu::Color::WHITE)
       @font.draw(@score.to_s, 590, 430 , 3, 1, 1, Gosu::Color::WHITE)
     else
-      @font.draw("Game over!", 250 , 200 , 3,1,1, Gosu::Color::WHITE)
+      @mainSong.stop
+      @font.draw("Game over!", 250 , 100 , 3,1,1, Gosu::Color::WHITE)
+      @font.draw("Score: ", 270, 150, 3, 1, 1, Gosu::Color::WHITE)
+      @font.draw(@score.to_s, 290, 200 , 3, 1, 1, Gosu::Color::WHITE)
       @font.draw("Press esc to go back to main menu", 120, 300 , 3, 1,1 ,Gosu::Color::WHITE)
     end
 
   end
+
+
+
  
   def button_down(button)
     if button == Gosu::KbEscape
+        @mainSong.stop
         close!
         Homescreen.new.show
+
     end
-	if button == Gosu::KbP
-	  @ball.toggle_pause
-	  @player.toggle_pause
+	 if button == Gosu::KbP
+	   @ball.toggle_pause
+	   @player.toggle_pause
+
+     if @mainSong.paused?
+      @mainSong.play(true)
+     else
+      @mainSong.pause
+     end
+
+    end
+    if button == Gosu::KbN
+      @lvlNum += 1
+      @level = Level.new("levels/lvl#{@lvlNum}.txt")
     end
   end
 
@@ -97,4 +126,3 @@ class RXWindow < Gosu::Window
 
 
 end
-RXWindow.new.show

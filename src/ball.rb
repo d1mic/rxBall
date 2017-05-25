@@ -3,8 +3,8 @@ require 'rubygems'
 
 class Ball
   attr_accessor :x , :y , :angle, :typePower, :timePower, :active3, :vector_x, :vector_y, :speed
-  def initialize(x = 320 , y =200, speed = 1)
-    @image_ball = Gosu::Image.new("img/ball_gray.png",false)
+  def initialize(x = 320 , y =150, speed = 1)
+    @image_ball = Gosu::Image.new("assets/img/ball_gray.png",false)
     @color= Gosu::Color.argb(0xff_ffffff)
     @x = x
     @y = y
@@ -12,12 +12,11 @@ class Ball
     @center_y = 0
     @width = 20
     @height = 20
-	@paused = false
-	@speed = speed
+	  @paused = false
+	  @speed = speed
     @vector_x = 3
     @vector_y = 3
     @radius = @width/2
-    
     @active3 = 0
   end
 
@@ -44,13 +43,11 @@ class Ball
   end
 
   def draw
-    @image_ball.draw_as_quad(@x, @y, @color,
-                   @x, @y + @height, @color,
-                   @x + @width, @y + @height, @color,
-                   @x + @width, @y, @color,5)
+    @image_ball.draw_as_quad(@x, @y, @color,@x, @y + @height, @color,@x + @width, @y + @height, @color,@x + @width, @y, @color,5)
   end
 
   def move(delta)
+
     @x += @vector_x * @speed;
     @y += @vector_y * @speed;
 
@@ -74,7 +71,6 @@ class Ball
       @vector_y = -@vector_y;
     end
     if ( @center_y + @radius >= 480) 
-      #@vector_y=-@vector_y
       $endGame = 1
     end
 
