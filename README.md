@@ -1,7 +1,7 @@
 # Rx Ball
 RXBall is a game similar to popular [DXball](https://en.wikipedia.org/wiki/DX-Ball) and [Breakout](https://en.wikipedia.org/wiki/Breakout_(video_game)) written in Ruby programming language originally as a project for a programming paradigms course. 
 
-![alt text](https://github.com/dimaria95/rxBall/blob/master/assets/img/space.jpg)
+![alt text](https://github.com/dimaria95/rxBall/blob/master/screenshots/menu.png)
 
 ## Getting Started
 
@@ -41,39 +41,15 @@ ruby main.rb
 
 ## Playing the game
 
-Explain how to run the automated tests for this system
-
 ### Controls
 
-Select:
-```
-space
-```
+* Select:  **space** 
+* Exit the game/ Go back:  **Escape** 
+* Pause the game: **P** 
+* Pause the music: **M** 
+* Movement: **Left/Right arrow** 
 
-Exit the game/ Go back: 
-```
-Esc
-```
-
-Pause the game: 
-```
-P
-```
-
-Pause the music: 
-```
-M
-```
-
-Movement: 
-```
-Left/Right Arrow 
-```
-
-Exit the game: 
-```
-Esc
-```
+![alt text](https://github.com/dimaria95/rxBall/blob/master/screenshots/game.png)
 
 ### Make your own level
 
@@ -94,7 +70,7 @@ Second way is to make a .txt file in form of other levels :
 
 * max 10 elements in line
 * n - normal brick
-* - - empty space
+* '-' - empty space
 * p - purple brick ( reverse power-up) 
 * y - yellow brick ( slow ball power-up)
 * g - green brick (wider paddle power-up)
