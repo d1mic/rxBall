@@ -84,8 +84,7 @@ Second way is to make a .txt file in form of other levels :
 
 * **Nikola Dimic** -  [dimaria95](https://github.com/dimaria95/)
 
-* **Dragana Dimitrijevic** - [dragana95]
-(https://github.com/dragana95)
+* **Dragana Dimitrijevic** - [dragana95](https://github.com/dragana95)
 
 ## License
 
