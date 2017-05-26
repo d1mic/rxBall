@@ -104,6 +104,14 @@ class RXWindow < Gosu::Window
         $home = Homescreen.new.show
         self.close!
     end
+    if button == Gosu::KbM
+      if @mainSong.playing?
+        @mainSong.pause
+      else
+        @mainSong.play(true)
+      end
+    end
+
 	 if button == Gosu::KbP
 	   @ball.toggle_pause
 	   @player.toggle_pause

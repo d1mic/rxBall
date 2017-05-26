@@ -21,9 +21,10 @@ class Ball
   end
 
   def reset_location
-    @speed = -1
+    @vector_x = -3
+    @vector_y = -3
     @x = 320
-    @y = 150
+    @y = 300
   end
 
   def pause
